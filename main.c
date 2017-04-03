@@ -15,9 +15,27 @@ how to use the page table and disk interfaces.
 #include <string.h>
 #include <errno.h>
 
+//Global Variables
+int npages;
+int nframes;
+const char *algorithm;
+int diskReads, diskWrites, pageFaults;
+
+void same_num_pf_handler(struct page_table *pt, int page){
+  page_table_set_entry(pt, page, page, PROT_READ|PROT_WRITE);
+  page_table_print(pt);
+}
+
 void page_fault_handler( struct page_table *pt, int page ){
   printf("page fault on page #%d\n",page);
-  exit(1);
+  if(npages == nframes){
+    same_num_pf_handler(pt, page);
+  }
+  //page_table_print(pt);
+  else{
+    page_table_print(pt);
+    exit(1);
+  }
 }
 
 int main( int argc, char *argv[] ){
@@ -26,18 +44,19 @@ int main( int argc, char *argv[] ){
     return 1;
   }
   
-  int npages = atoi(argv[1]);
-  int nframes = atoi(argv[2]);
-  const char *algorithm = argv[3];
-  const char *program = argv[4];
-  
+  npages = atoi(argv[1]);
+  nframes = atoi(argv[2]);
+  if(nframes > npages){ //if more frames than pages
+    nframes = npages;
+  }
+  algorithm = argv[3];
+  const char *program = argv[4]; 
+
   struct disk *disk = disk_open("myvirtualdisk",npages);
   if(!disk) {
     fprintf(stderr,"couldn't create virtual disk: %s\n",strerror(errno));
     return 1;
-  }
-  
-  
+  }  
   struct page_table *pt = page_table_create( npages, nframes, page_fault_handler );
   if(!pt) {
     fprintf(stderr,"couldn't create page table: %s\n",strerror(errno));
