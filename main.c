@@ -23,7 +23,8 @@ int diskReads, diskWrites, pageFaults;
 int *frameTable = NULL;
 
 void print_frame_table(){
-  for(int i=0; i < nframes; i++){
+  int i;
+  for(i=0; i < nframes; i++){
     printf("%d\n", frameTable[i]);
   }
 }
@@ -32,32 +33,66 @@ void same_num_pf_handler(struct page_table *pt, int page){
   //same number of pages and frames
   page_table_set_entry(pt, page, page, PROT_READ|PROT_WRITE);
   page_table_print(pt);
+  pageFaults++;
 }
 
 void rand_handler(struct page_table *pt, int page){
   int spot = (rand() % (page + 1));
   //TODO-check current bits at spot
+  
   //if there's no bits:
   //page_table_set_entry(pt, page, spot, PROT_READ);
   //disk_read(disk, page, &physmem[spot * frame_size]);
 }
 
+void fifo_handler(struct page_table *pt, int page){
+
+}
+
+void perm_bit_handler(struct page_table *pt, int page){
+  //check bits
+}
+
 void page_fault_handler( struct page_table *pt, int page ){
   printf("page fault on page #%d\n",page);
-  if(npages == nframes){
+  if(npages == nframes){//might have to move
     same_num_pf_handler(pt, page);
   }
   //page_table_print(pt);
   else{
+    int found = 0;
+    int i;
+    for(i=0; i<nframes; i++){
+      if(page == frameTable[i]){
+	perm_bit_handler(pt, page);
+	found = 1;
+      }
+    }
+    if(found == 0){
+      if(!strcmp(algorithm, "rand")){
+	rand_handler(pt, page);
+      } else if(!strcmp(algorithm, "fifo")){
+	fifo_handler(pt, page);
+      }
+    }
+    
+    /*
     if(!strcmp(algorithm,"rand")){
       rand_handler(pt, page);
+    } else if(!strcmp(algorithm, "fifo")){
+      //fifo_handler
     }
+
+    */
     page_table_print(pt);
     exit(1);
   }
 }
 
 int main( int argc, char *argv[] ){
+  pageFaults = 0;
+  diskReads = 0;
+  diskWrites = 0;
   if(argc!=5) {
     printf("use: virtmem <npages> <nframes> <rand|fifo|lru|custom> <sort|scan|focus>\n");
     return 1;
@@ -101,7 +136,7 @@ int main( int argc, char *argv[] ){
     fprintf(stderr,"unknown program: %s\n",argv[3]);
     return 1;
   }
-  
+  printf("%d\n", pageFaults);
   page_table_delete(pt);
   disk_close(disk);
   free(frameTable);
