@@ -38,11 +38,7 @@ void same_num_pf_handler(struct page_table *pt, int page){
 
 void rand_handler(struct page_table *pt, int page){
   int spot = (rand() % (page + 1));
-  //TODO-check current bits at spot
   
-  //if there's no bits:
-  //page_table_set_entry(pt, page, spot, PROT_READ);
-  //disk_read(disk, page, &physmem[spot * frame_size]);
 }
 
 void fifo_handler(struct page_table *pt, int page){
@@ -50,7 +46,9 @@ void fifo_handler(struct page_table *pt, int page){
 }
 
 void perm_bit_handler(struct page_table *pt, int page){
-  //check bits
+  int frame, bits;
+  page_table_get_entry(pt, page, &frame, &bits);
+  printf("%d\n", frame);
 }
 
 void page_fault_handler( struct page_table *pt, int page ){
@@ -75,15 +73,11 @@ void page_fault_handler( struct page_table *pt, int page ){
 	fifo_handler(pt, page);
       }
     }
-    
-    /*
-    if(!strcmp(algorithm,"rand")){
+    /*if(!strcmp(algorithm,"rand")){
       rand_handler(pt, page);
     } else if(!strcmp(algorithm, "fifo")){
       //fifo_handler
-    }
-
-    */
+    }*/
     page_table_print(pt);
     exit(1);
   }
