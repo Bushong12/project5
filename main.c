@@ -20,10 +20,26 @@ int npages;
 int nframes;
 const char *algorithm;
 int diskReads, diskWrites, pageFaults;
+int *frameTable = NULL;
+
+void print_frame_table(){
+  for(int i=0; i < nframes; i++){
+    printf("%d\n", frameTable[i]);
+  }
+}
 
 void same_num_pf_handler(struct page_table *pt, int page){
+  //same number of pages and frames
   page_table_set_entry(pt, page, page, PROT_READ|PROT_WRITE);
   page_table_print(pt);
+}
+
+void rand_handler(struct page_table *pt, int page){
+  int spot = (rand() % (page + 1));
+  //TODO-check current bits at spot
+  //if there's no bits:
+  //page_table_set_entry(pt, page, spot, PROT_READ);
+  //disk_read(disk, page, &physmem[spot * frame_size]);
 }
 
 void page_fault_handler( struct page_table *pt, int page ){
@@ -33,6 +49,9 @@ void page_fault_handler( struct page_table *pt, int page ){
   }
   //page_table_print(pt);
   else{
+    if(!strcmp(algorithm,"rand")){
+      rand_handler(pt, page);
+    }
     page_table_print(pt);
     exit(1);
   }
@@ -49,6 +68,8 @@ int main( int argc, char *argv[] ){
   if(nframes > npages){ //if more frames than pages
     nframes = npages;
   }
+  frameTable = malloc(sizeof(int)*nframes);
+  
   algorithm = argv[3];
   const char *program = argv[4]; 
 
@@ -83,6 +104,7 @@ int main( int argc, char *argv[] ){
   
   page_table_delete(pt);
   disk_close(disk);
+  free(frameTable);
   
   return 0;
 }
