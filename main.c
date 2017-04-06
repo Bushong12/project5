@@ -131,6 +131,13 @@ void diff_num_pf_handler(struct page_table *pt, int page){
     for(j = 0; j < nframes; j++){
       printf("frameTable[%d]: %d\n", j, frameTable[j]);
 	if(frameTable[j] == -1){ //we found an empty spot!
+	  lruTable[j] = 0;
+	  for(i=0; i<nframes; i++){
+	    if(i == j) continue;
+	    val = lruTable[i];
+	    val++;
+	    lruTable[i] = val;
+	  }
 	  page_table_set_entry(pt, page, j, PROT_READ);
 	  frameTable[j] = page;
 	  disk_read(disk, page, &physmem[j*nframes]);
