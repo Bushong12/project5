@@ -56,8 +56,6 @@ int in_frame_table(int page){
 void rand_handler(struct page_table *pt, int page){
   //int fr = (rand() % (nframes));
   int i;
-  time_t t;
-  srand((unsigned) time(&t));
   int fr = rand() % nframes;
     //printf("%d ", fr);
     int pg = frameTable[fr];
@@ -182,6 +180,8 @@ void page_fault_handler( struct page_table *pt, int page ){
 }
 
 int main( int argc, char *argv[] ){
+  time_t t;
+  srand((unsigned) time(&t));
     pageFaults = 0;
     diskReads = 0;
     diskWrites = 0;
