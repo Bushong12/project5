@@ -1,0 +1,11 @@
+cases:
+* equal number of pages and frames
+    * map directly
+* more pages than frames
+    * page replacement algorithms
+* more frames than pages
+    * set number of frames equal to pages and map directly
+
+need to keep track of which frames are free in physical memory via
+    a frame table
+    ==> an array?

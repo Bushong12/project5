@@ -1,0 +1,60 @@
+if page fault:
+    loop though physical memory and compare data
+    if info in phys_mem:
+        permissions_handler
+    else:
+        input handler (rand | fifo | custom)
+
+FIRST:
+    check if data in phys mem
+    check if empty frame
+    if frame table full & bits are 0, need to write frame to physmem and
+          swap something out [it's full and it's not in there]
+    RAND:
+        randomly generate number 0 - numframe
+        move that frame to disk
+        write new data to the same spot in phys mem
+        set read bit? of new thing in virtual memory
+        get rid of read/ write bits on entry you deleted phys mem
+
+    FIFO: {if nFrame = 4, biggest frame num = 3}
+        use global variable OLDEST_FRAME - set on first regular write
+        move the oldest frame to disk
+        write new data to the same spot in phys mem
+        set read bit of new thing in virtual memory
+        get rid of read/write bits on entry you deleted in phys mem
+        increment OLDEST_FRAME
+        if OLDEST_FRAME == nFrame
+            OLDEST_FRAME = 0
+
+        code {
+            int fr = OLDEST_FRAME;
+            int pg = frameTable[fr];
+            disk_write(disk, pg, &physmem[fr*npages]);
+            disk_read(disk, pg, &physmem[fr*npages]);
+            page_table_set_entry(pt, page, fr, PROT_READ);
+            frameTable[fr] = page;
+            page_table_set_entry(pt, pg, 0, 0);
+            OLDEST_FRAME++;
+            if (OLDEST_FRAME == nFrames) {
+                OLDEST_FRAME = 0;
+            }
+        }
+
+BUT:
+    if you did find it in phys mem
+    then you will have to set write bits or sumthing
+
+NEED: 
+{
+function called in_phys_mem that returns integer to show if data in physical memory
+if true:
+    set write bits or something
+if false:
+    check if frame_table_full
+    if true:
+        call rand or fifo or lru
+    if false:
+        get the empty spot and move the data there
+}
+
