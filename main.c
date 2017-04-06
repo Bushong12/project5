@@ -79,13 +79,15 @@ void rand_handler(struct page_table *pt, int page){
 	  printf("put the page at spot: %d\n", j);
 	  disk_read(disk, page, &physmem[j*nframes]);
 	  printf("i think i read to disk?\n");
-      	  break;
+      	  if(table_full()) return;
+	  else break;
 	}
       }
       //if the table is full!!!
       if(table_full()){
 	//int pg = (rand() % (npages + 1)); //page to remove
-	int fr = (rand() % (nframes + 1));
+	int fr = (rand() % (nframes));
+	printf("rando numero: %d", fr);
 	int pg = frameTable[fr];
 	disk_write(disk, pg, &physmem[fr*npages]);
 	disk_read(disk, page, &physmem[fr*npages]);
