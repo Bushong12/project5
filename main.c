@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 //Global Variables
 int npages;
@@ -22,7 +23,8 @@ int OLDEST_FRAME = 0;
 const char *algorithm;
 int diskReads, diskWrites, pageFaults;
 int *frameTable = NULL;
-struct disk *disk; //?????
+int *lruTable = NULL;
+struct disk *disk; 
 char *physmem;
 
 void initialize_frame_table(){
@@ -52,7 +54,12 @@ int in_frame_table(int page){
 }
 
 void rand_handler(struct page_table *pt, int page){
-    int fr = (rand() % (nframes));
+  //int fr = (rand() % (nframes));
+  int i;
+  time_t t;
+  srand((unsigned) time(&t));
+  int fr = rand() % nframes;
+    //printf("%d ", fr);
     int pg = frameTable[fr];
     disk_write(disk, pg, &physmem[fr*npages]);
     disk_read(disk, page, &physmem[fr*npages]);
@@ -65,7 +72,7 @@ void fifo_handler(struct page_table *pt, int page) {
     int fr = OLDEST_FRAME;
     int pg = frameTable[fr];
     disk_write(disk, pg, &physmem[fr*npages]);
-    disk_read(disk, pg, &physmem[fr*npages]);
+    disk_read(disk, page, &physmem[fr*npages]);
     page_table_set_entry(pt, page, fr, PROT_READ);
     frameTable[fr] = page;
     page_table_set_entry(pt, pg, 0, 0);
@@ -73,6 +80,30 @@ void fifo_handler(struct page_table *pt, int page) {
     if (OLDEST_FRAME == nframes) {
         OLDEST_FRAME = 0;
     }
+}
+
+void lru_handler(struct page_table *pt, int page){
+  int i, fr, val;
+  int max = 0;
+  for(i = 0; i < nframes; i++){
+    if(lruTable[i] > max){
+      max = lruTable[i];
+      fr = i;
+    }
+  }
+  int pg = frameTable[fr];
+  disk_write(disk, pg, &physmem[fr*npages]);
+  disk_read(disk, page, &physmem[fr*npages]);
+  page_table_set_entry(pt, page, fr, PROT_READ);
+  frameTable[fr] = page;
+  page_table_set_entry(pt, pg, 0, 0);
+  lruTable[fr] = 0;
+  for(i=0; i<nframes; i++){
+    if(i == fr) continue;
+    val = lruTable[i];
+    val++;
+    lruTable[i] = val;
+  }
 }
 
 void same_num_pf_handler(struct page_table *pt, int page){
@@ -91,38 +122,53 @@ void diff_num_pf_handler(struct page_table *pt, int page){
     int found = in_frame_table(page);
     //we didn't find it in frameTable
     if(!found && bits == 0){
-        for(j = 0; j < nframes; j++){
-            printf("frameTable[%d]: %d\n", j, frameTable[j]);
-            if(frameTable[j] == -1){ //we found an empty spot!
-                page_table_set_entry(pt, page, j, PROT_READ);
-                frameTable[j] = page;
-                disk_read(disk, page, &physmem[j*nframes]);
-                if(table_full()) return;
-                else break;
-            }
-        }
-        if(table_full()){
-            if (!strcmp(algorithm, "rand")){
-                rand_handler(pt, page);
-                printf("\n");
-            }
-            else if(!strcmp(algorithm, "fifo")){
-                fifo_handler(pt, page);
-                printf("\n");
-            }
-            //rand_handler(pt, page);
-        }
+      for(j = 0; j < nframes; j++){
+	printf("frameTable[%d]: %d\n", j, frameTable[j]);
+	if(frameTable[j] == -1){ //we found an empty spot!
+	  page_table_set_entry(pt, page, j, PROT_READ);
+	  frameTable[j] = page;
+	  disk_read(disk, page, &physmem[j*nframes]);
+	  if(table_full()) return;
+	  else break;
+	}
+      }
+      if(table_full()){
+	if (!strcmp(algorithm, "rand")){
+	  rand_handler(pt, page);
+	  printf("\n");
+	}
+	else if(!strcmp(algorithm, "fifo")){
+	  fifo_handler(pt, page);
+	  printf("\n");
+	}
+	else if(!strcmp(algorithm, "lru")){
+	  lru_handler(pt, page);
+	  printf("\n");
+	}
+      }
     }
     //found in frame table -- need to change bits
     if(found){
-        if(bits == 1)
-            page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE);
-        else if(bits == 3)
-            page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE|PROT_EXEC);
+      if(bits == 1){
+	page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE);
+ 	//LRU
+	int i, val;
+	lruTable[frame] = 0;
+	for(i=0; i<nframes; i++){
+	  if(i == frame) continue;
+	  val = lruTable[i];
+	  val++;
+	  lruTable[i] = val;
+	}
+      }
+      else if(bits == 3){
+	page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE|PROT_EXEC);
+      }    
     }
 }
 
 void page_fault_handler( struct page_table *pt, int page ){
+  pageFaults++;
     printf("page fault on page #%d\n",page);
     if(npages == nframes){//might have to move
         same_num_pf_handler(pt, page);
@@ -150,6 +196,7 @@ int main( int argc, char *argv[] ){
         nframes = npages;
     }
     frameTable = malloc(sizeof(int)*(nframes-1));
+    lruTable = malloc(sizeof(int)*(nframes-1));
     initialize_frame_table();
     algorithm = argv[3];
     const char *program = argv[4]; 
@@ -184,10 +231,11 @@ int main( int argc, char *argv[] ){
         fprintf(stderr,"unknown program: %s\n",argv[3]);
         return 1;
     }
-    printf("%d\n", pageFaults);
+    printf("Page Faults: %d\n", pageFaults);
     page_table_delete(pt);
     disk_close(disk);
     free(frameTable);
+    free(lruTable);
 
     return 0;
 }
