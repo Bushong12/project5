@@ -19,14 +19,28 @@ how to use the page table and disk interfaces.
 int npages;
 int nframes;
 const char *algorithm;
-int diskReads, diskWrites, pageFaults;
+int diskReads, diskWrites, pageFaults, availFrames;
 int *frameTable = NULL;
+struct disk *disk; //?????
+char *physmem;
 
-void print_frame_table(){
+void initialize_frame_table(){
   int i;
   for(i=0; i < nframes; i++){
-    printf("%d\n", frameTable[i]);
+    //    printf("%d\n", frameTable[i]);
+    frameTable[i] = -1;
   }
+}
+
+int table_full(){
+  int i;
+  int tableFull = 1;
+  for(i = 0; i < nframes; i++){
+    if(frameTable[i] == -1){
+      tableFull = 0;
+    }
+  }
+  return tableFull;
 }
 
 void same_num_pf_handler(struct page_table *pt, int page){
@@ -37,18 +51,73 @@ void same_num_pf_handler(struct page_table *pt, int page){
 }
 
 void rand_handler(struct page_table *pt, int page){
-  int spot = (rand() % (page + 1));
-  
+  printf("in rand_handler\n");
+  int frame, bits, i, j;
+  page_table_get_entry(pt, page, &frame, &bits); //USE FRAME
+  printf("just got page table entry for page: %d\n", page);
+  printf("bits: %d\n", bits);
+
+  //checking to see if the page is in frameTable
+  int found = 0;
+  for(i = 0; i < nframes; i++){
+    if(frameTable[i] == page){
+      printf("found page at frame: %d\n", i);
+      found = 1;
+    }
+  }
+
+  //we didn't find it in frameTable
+  if(!found){
+    if(bits == 0){
+      for(j = 0; j < nframes; j++){
+	printf("frameTable[%d]: %d\n", j, frameTable[j]);
+	if(frameTable[j] == -1){ //we found an empty spot!
+	  page_table_set_entry(pt, page, j, PROT_READ);
+	  frameTable[j] = page;
+	  availFrames--;
+	  printf("just set entry for page: %d\n", page);
+	  printf("put the page at spot: %d\n", j);
+	  disk_read(disk, page, &physmem[j*nframes]);
+	  printf("i think i read to disk?\n");
+      	  break;
+	}
+      }
+      //if the table is full!!!
+      if(table_full()){
+	//int pg = (rand() % (npages + 1)); //page to remove
+	int fr = (rand() % (nframes + 1));
+	int pg = frameTable[fr];
+	disk_write(disk, pg, &physmem[fr*npages]);
+	disk_read(disk, page, &physmem[fr*npages]);
+	page_table_set_entry(pt, page, fr, PROT_READ);
+	frameTable[fr] = page;
+	page_table_set_entry(pt, pg, 0, 0); //??what does this line do
+      }
+    } else if(bits == 1){ //only read bits set and table not full
+      page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE);
+    } else if(bits == 3){ //read and write bits set, table not full
+      page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE|PROT_EXEC);
+    }
+  }
+
+  if(found){
+    /*    if(bits == 0){
+      disk_write(disk, pg, &physmem[fspot*npages]);
+      disk_read(disk, page, &physmem[fspot*npages]);
+      page_table_set_entry(pt, page, fspot, PROT_READ);
+      frameTable[fspot] = page;
+      page_table_set_entry(pt, pg, fspot, 0); //??what does this line do
+      }*/
+    if(bits == 1){
+      page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE);
+    } else if(bits == 3){
+      page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE|PROT_EXEC);
+    }
+  }
 }
 
 void fifo_handler(struct page_table *pt, int page){
 
-}
-
-void perm_bit_handler(struct page_table *pt, int page){
-  int frame, bits;
-  page_table_get_entry(pt, page, &frame, &bits);
-  printf("%d\n", frame);
 }
 
 void page_fault_handler( struct page_table *pt, int page ){
@@ -56,30 +125,16 @@ void page_fault_handler( struct page_table *pt, int page ){
   if(npages == nframes){//might have to move
     same_num_pf_handler(pt, page);
   }
-  //page_table_print(pt);
   else{
-    int found = 0;
-    int i;
-    for(i=0; i<nframes; i++){
-      if(page == frameTable[i]){
-	perm_bit_handler(pt, page);
-	found = 1;
-      }
-    }
-    if(found == 0){
-      if(!strcmp(algorithm, "rand")){
-	rand_handler(pt, page);
-      } else if(!strcmp(algorithm, "fifo")){
-	fifo_handler(pt, page);
-      }
-    }
-    /*if(!strcmp(algorithm,"rand")){
+    if(!strcmp(algorithm, "rand")){
       rand_handler(pt, page);
-    } else if(!strcmp(algorithm, "fifo")){
-      //fifo_handler
-    }*/
+      printf("\n");
+    }
+    else if(!strcmp(algorithm, "fifo"))
+      fifo_handler(pt, page);
     page_table_print(pt);
-    exit(1);
+    //exit(1);
+    return;
   }
 }
 
@@ -97,12 +152,14 @@ int main( int argc, char *argv[] ){
   if(nframes > npages){ //if more frames than pages
     nframes = npages;
   }
-  frameTable = malloc(sizeof(int)*nframes);
-  
+  frameTable = malloc(sizeof(int)*(nframes-1));
+  initialize_frame_table();
+  availFrames = nframes - 1;
   algorithm = argv[3];
   const char *program = argv[4]; 
 
-  struct disk *disk = disk_open("myvirtualdisk",npages);
+  //  struct disk *disk = disk_open("myvirtualdisk",npages);
+  disk = disk_open("myvirtualdisk", npages);
   if(!disk) {
     fprintf(stderr,"couldn't create virtual disk: %s\n",strerror(errno));
     return 1;
@@ -115,7 +172,8 @@ int main( int argc, char *argv[] ){
   
   char *virtmem = page_table_get_virtmem(pt);
   
-  char *physmem = page_table_get_physmem(pt);
+  //char *physmem = page_table_get_physmem(pt);
+  physmem = page_table_get_physmem(pt);
   
   if(!strcmp(program,"sort")) {
     sort_program(virtmem,npages*PAGE_SIZE);
