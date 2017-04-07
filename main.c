@@ -27,13 +27,14 @@ int *lruTable = NULL;
 struct disk *disk; 
 char *physmem;
 
+//initialize array with -1 values (empty spots)
 void initialize_frame_table(){
     int i;
     for(i=0; i < nframes; i++){
         frameTable[i] = -1;
     }
 }
-
+//check if physical memory is full
 int table_full(){
     int i;
     int tableFull = 1;
@@ -45,6 +46,7 @@ int table_full(){
     return tableFull;
 }
 
+//check if a page is in the frame table array (in physical memory)
 int in_frame_table(int page){
     int i;
     for(i = 0; i < nframes; i++){
@@ -53,6 +55,7 @@ int in_frame_table(int page){
     return 0;
 }
 
+//choose a page at random to replace
 void rand_handler(struct page_table *pt, int page){
     pageFaults++;
     int fr = rand() % nframes;
@@ -67,6 +70,7 @@ void rand_handler(struct page_table *pt, int page){
     page_table_set_entry(pt, pg, 0, 0);
 }
 
+//replace pages on a first in, first out basis
 void fifo_handler(struct page_table *pt, int page) {
     pageFaults++;
     int fr = OLDEST_FRAME;
@@ -88,6 +92,7 @@ void custom_handler(struct page_table *pt, int page){
     pageFaults++;
     int i, fr, val;
     int max = 0;
+    //replace the page with the highest value -- least recently had its bits changed
     for(i = 0; i < nframes; i++){
         if(lruTable[i] > max){
             max = lruTable[i];
@@ -103,6 +108,7 @@ void custom_handler(struct page_table *pt, int page){
     frameTable[fr] = page;
     page_table_set_entry(pt, pg, 0, 0);
     lruTable[fr] = 0;
+    //updating array for custom algorithm
     for(i=0; i<nframes; i++){
         if(i == fr) continue;
         val = lruTable[i];
@@ -123,7 +129,6 @@ void diff_num_pf_handler(struct page_table *pt, int page){
     //different number of pages and frames
     int frame, bits, j, i, val;
     page_table_get_entry(pt, page, &frame, &bits);
-
     //checking to see if the page is in frameTable
     int found = in_frame_table(page);
     //we didn't find it in frameTable
@@ -132,7 +137,7 @@ void diff_num_pf_handler(struct page_table *pt, int page){
             //printf("frameTable[%d]: %d\n", j, frameTable[j]);
             if(frameTable[j] == -1){ //we found an empty spot!
                 lruTable[j] = 0;
-                for(i=0; i<nframes; i++){
+                for(i=0; i<nframes; i++){ //update array for custom algorithm
                     if(i == j) continue;
                     val = lruTable[i];
                     val++;
@@ -146,6 +151,7 @@ void diff_num_pf_handler(struct page_table *pt, int page){
                 else break;
             }
         }
+	//table is full - we need to replace a page
         if(table_full()){
             if (!strcmp(algorithm, "rand")){
                 rand_handler(pt, page);
@@ -159,13 +165,18 @@ void diff_num_pf_handler(struct page_table *pt, int page){
                 custom_handler(pt, page);
                 //printf("\n");
             }
+	    else{
+	      printf("unknown algorithm\n");
+	      printf("use: virtmem <npages> <nframes> <rand|fifo|custom> <sort|scan|focus>\n");
+	      exit(1);
+	    }
         }
     }
-    //found in frame table -- need to change bits
+    //found page in frame table -- need to change permission bits
     if(found){
-        if(bits == 1){
+      if(bits == 1){ //need to set write bits
             page_table_set_entry(pt, page, frame, PROT_READ|PROT_WRITE);
-            //LRU
+            //custom algorithm - updating array
             int i, val;
             lruTable[frame] = 0;
             for(i=0; i<nframes; i++){
@@ -184,7 +195,7 @@ void diff_num_pf_handler(struct page_table *pt, int page){
 void page_fault_handler( struct page_table *pt, int page ){
     //pageFaults++;
     //printf("page fault on page #%d\n",page);
-    if(npages == nframes){//might have to move
+    if(npages == nframes){
         same_num_pf_handler(pt, page);
     }
     else{
@@ -196,8 +207,9 @@ void page_fault_handler( struct page_table *pt, int page ){
 }
 
 int main( int argc, char *argv[] ){
+    //used time so random values were not consistent
     time_t t;
-    srand((unsigned) time(&t));
+    srand((unsigned) time(&t)); 
     pageFaults = 0;
     diskReads = 0;
     diskWrites = 0;
