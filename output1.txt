@@ -86,119 +86,96 @@ frameTable[1]: 1
 frameTable[2]: 2
 frameTable[3]: 3
 
-page 000000: frame 000000 bits ---
+page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
 page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits r--
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits r--
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
 page 000007: frame 000000 bits ---
 page fault on page #4
-page 000000: frame 000000 bits ---
+page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
 page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits rw-
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
 page 000007: frame 000000 bits ---
 page fault on page #5
-frameTable[0]: 4
+frameTable[0]: 0
 frameTable[1]: 1
 frameTable[2]: 2
-frameTable[3]: 3
+frameTable[3]: 4
 
-page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits r--
+page 000000: frame 000000 bits rw-
+page 000001: frame 000001 bits rw-
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000002 bits r--
 page 000006: frame 000000 bits ---
 page 000007: frame 000000 bits ---
 page fault on page #5
-page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
+page 000000: frame 000000 bits rw-
+page 000001: frame 000001 bits rw-
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000002 bits rw-
 page 000006: frame 000000 bits ---
 page 000007: frame 000000 bits ---
 page fault on page #6
-frameTable[0]: 4
-frameTable[1]: 5
-frameTable[2]: 2
-frameTable[3]: 3
+frameTable[0]: 0
+frameTable[1]: 1
+frameTable[2]: 5
+frameTable[3]: 4
 
-page 000000: frame 000000 bits ---
+page 000000: frame 000000 bits rw-
 page 000001: frame 000000 bits ---
 page 000002: frame 000000 bits ---
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits r--
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000002 bits rw-
+page 000006: frame 000001 bits r--
 page 000007: frame 000000 bits ---
 page fault on page #6
-page 000000: frame 000000 bits ---
+page 000000: frame 000000 bits rw-
 page 000001: frame 000000 bits ---
 page 000002: frame 000000 bits ---
-page 000003: frame 000003 bits rw-
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000002 bits rw-
+page 000006: frame 000001 bits rw-
 page 000007: frame 000000 bits ---
 page fault on page #7
-frameTable[0]: 4
-frameTable[1]: 5
-frameTable[2]: 6
-frameTable[3]: 3
+frameTable[0]: 0
+frameTable[1]: 6
+frameTable[2]: 5
+frameTable[3]: 4
 
-page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits r--
-page fault on page #7
-page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits rw-
-page fault on page #0
-frameTable[0]: 4
-frameTable[1]: 5
-frameTable[2]: 6
-frameTable[3]: 7
-
-page 000000: frame 000000 bits r--
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000000 bits ---
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits rw-
-page fault on page #0
 page 000000: frame 000000 bits rw-
 page 000001: frame 000000 bits ---
 page 000002: frame 000000 bits ---
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits ---
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
+page 000005: frame 000002 bits rw-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000003 bits r--
+page fault on page #7
+page 000000: frame 000000 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000002 bits rw-
+page 000006: frame 000001 bits rw-
 page 000007: frame 000003 bits rw-
 page fault on page #1
 frameTable[0]: 0
-frameTable[1]: 5
-frameTable[2]: 6
+frameTable[1]: 6
+frameTable[2]: 5
 frameTable[3]: 7
 
 page 000000: frame 000000 bits rw-
@@ -206,8 +183,8 @@ page 000001: frame 000001 bits r--
 page 000002: frame 000000 bits ---
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000002 bits rw-
+page 000005: frame 000002 bits rw-
+page 000006: frame 000000 bits ---
 page 000007: frame 000003 bits rw-
 page fault on page #1
 page 000000: frame 000000 bits rw-
@@ -215,42 +192,42 @@ page 000001: frame 000001 bits rw-
 page 000002: frame 000000 bits ---
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000002 bits rw-
+page 000005: frame 000002 bits rw-
+page 000006: frame 000000 bits ---
 page 000007: frame 000003 bits rw-
 page fault on page #2
 frameTable[0]: 0
 frameTable[1]: 1
-frameTable[2]: 6
+frameTable[2]: 5
 frameTable[3]: 7
 
 page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits r--
+page 000002: frame 000003 bits r--
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
+page 000005: frame 000002 bits rw-
 page 000006: frame 000000 bits ---
-page 000007: frame 000003 bits rw-
+page 000007: frame 000000 bits ---
 page fault on page #2
 page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits rw-
+page 000002: frame 000003 bits rw-
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
+page 000005: frame 000002 bits rw-
 page 000006: frame 000000 bits ---
-page 000007: frame 000003 bits rw-
+page 000007: frame 000000 bits ---
 page fault on page #3
 frameTable[0]: 0
 frameTable[1]: 1
-frameTable[2]: 2
-frameTable[3]: 7
+frameTable[2]: 5
+frameTable[3]: 2
 
 page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits r--
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits r--
 page 000004: frame 000000 bits ---
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
@@ -258,8 +235,8 @@ page 000007: frame 000000 bits ---
 page fault on page #3
 page 000000: frame 000000 bits rw-
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits ---
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
@@ -267,13 +244,13 @@ page 000007: frame 000000 bits ---
 page fault on page #4
 frameTable[0]: 0
 frameTable[1]: 1
-frameTable[2]: 2
-frameTable[3]: 3
+frameTable[2]: 3
+frameTable[3]: 2
 
 page 000000: frame 000000 bits ---
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits r--
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
@@ -281,8 +258,8 @@ page 000007: frame 000000 bits ---
 page fault on page #4
 page 000000: frame 000000 bits ---
 page 000001: frame 000001 bits rw-
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits rw-
 page 000005: frame 000000 bits ---
 page 000006: frame 000000 bits ---
@@ -290,13 +267,13 @@ page 000007: frame 000000 bits ---
 page fault on page #5
 frameTable[0]: 4
 frameTable[1]: 1
-frameTable[2]: 2
-frameTable[3]: 3
+frameTable[2]: 3
+frameTable[3]: 2
 
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits rw-
 page 000005: frame 000001 bits r--
 page 000006: frame 000000 bits ---
@@ -304,8 +281,8 @@ page 000007: frame 000000 bits ---
 page fault on page #5
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000002 bits rw-
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits rw-
 page 000005: frame 000001 bits rw-
 page 000006: frame 000000 bits ---
@@ -313,289 +290,373 @@ page 000007: frame 000000 bits ---
 page fault on page #6
 frameTable[0]: 4
 frameTable[1]: 5
-frameTable[2]: 2
-frameTable[3]: 3
+frameTable[2]: 3
+frameTable[3]: 2
 
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits r--
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits r--
 page 000007: frame 000000 bits ---
 page fault on page #6
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000003 bits rw-
+page 000002: frame 000003 bits rw-
+page 000003: frame 000002 bits rw-
 page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
 page 000007: frame 000000 bits ---
 page fault on page #7
 frameTable[0]: 4
-frameTable[1]: 5
-frameTable[2]: 6
-frameTable[3]: 3
+frameTable[1]: 6
+frameTable[2]: 3
+frameTable[3]: 2
 
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
+page 000002: frame 000003 bits rw-
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits r--
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000002 bits r--
 page fault on page #7
 page 000000: frame 000000 bits ---
 page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
+page 000002: frame 000003 bits rw-
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits rw-
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits rw-
-page fault on page #0
-frameTable[0]: 4
-frameTable[1]: 5
-frameTable[2]: 6
-frameTable[3]: 7
-
-page 000000: frame 000000 bits r--
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000000 bits ---
-page 000005: frame 000001 bits rw-
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits rw-
-page fault on page #4
-frameTable[0]: 0
-frameTable[1]: 5
-frameTable[2]: 6
-frameTable[3]: 7
-
-page 000000: frame 000000 bits r--
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000001 bits r--
 page 000005: frame 000000 bits ---
-page 000006: frame 000002 bits rw-
-page 000007: frame 000003 bits rw-
-page fault on page #1
-frameTable[0]: 0
-frameTable[1]: 4
-frameTable[2]: 6
-frameTable[3]: 7
-
-page 000000: frame 000000 bits r--
-page 000001: frame 000002 bits r--
-page 000002: frame 000000 bits ---
-page 000003: frame 000000 bits ---
-page 000004: frame 000001 bits r--
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000003 bits rw-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000002 bits rw-
 page fault on page #5
-frameTable[0]: 0
-frameTable[1]: 4
-frameTable[2]: 1
-frameTable[3]: 7
+frameTable[0]: 4
+frameTable[1]: 6
+frameTable[2]: 7
+frameTable[3]: 2
 
-page 000000: frame 000000 bits r--
-page 000001: frame 000002 bits r--
+page 000000: frame 000000 bits ---
+page 000001: frame 000000 bits ---
 page 000002: frame 000000 bits ---
 page 000003: frame 000000 bits ---
-page 000004: frame 000001 bits r--
+page 000004: frame 000000 bits rw-
 page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #2
-frameTable[0]: 0
-frameTable[1]: 4
-frameTable[2]: 1
-frameTable[3]: 5
-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000002 bits rw-
+page fault on page #5
 page 000000: frame 000000 bits ---
-page 000001: frame 000002 bits r--
-page 000002: frame 000000 bits r--
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
 page 000003: frame 000000 bits ---
-page 000004: frame 000001 bits r--
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #3
-frameTable[0]: 2
-frameTable[1]: 4
-frameTable[2]: 1
-frameTable[3]: 5
-
-page 000000: frame 000000 bits ---
-page 000001: frame 000002 bits r--
-page 000002: frame 000000 bits r--
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
+page 000004: frame 000000 bits rw-
+page 000005: frame 000003 bits rw-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000002 bits rw-
 page fault on page #0
-frameTable[0]: 2
-frameTable[1]: 3
-frameTable[2]: 1
+frameTable[0]: 4
+frameTable[1]: 6
+frameTable[2]: 7
 frameTable[3]: 5
 
 page 000000: frame 000002 bits r--
 page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits r--
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits rw-
+page 000005: frame 000003 bits rw-
+page 000006: frame 000001 bits rw-
 page 000007: frame 000000 bits ---
-page fault on page #0
-page 000000: frame 000002 bits rw-
-page 000001: frame 000000 bits ---
-page 000002: frame 000000 bits r--
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #1
-frameTable[0]: 2
-frameTable[1]: 3
+page fault on page #7
+frameTable[0]: 4
+frameTable[1]: 6
 frameTable[2]: 0
 frameTable[3]: 5
 
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits r--
-page 000002: frame 000000 bits r--
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #1
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
-page 000002: frame 000000 bits r--
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #2
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
-page 000002: frame 000000 bits rw-
-page 000003: frame 000001 bits r--
-page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #3
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
-page 000002: frame 000000 bits rw-
-page 000003: frame 000001 bits rw-
-page 000004: frame 000000 bits ---
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #4
-frameTable[0]: 2
-frameTable[1]: 3
-frameTable[2]: 0
-frameTable[3]: 1
-
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
+page 000000: frame 000002 bits r--
+page 000001: frame 000000 bits ---
 page 000002: frame 000000 bits ---
-page 000003: frame 000001 bits rw-
-page 000004: frame 000000 bits r--
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #4
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
-page 000002: frame 000000 bits ---
-page 000003: frame 000001 bits rw-
-page 000004: frame 000000 bits rw-
-page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #2
-frameTable[0]: 4
-frameTable[1]: 3
-frameTable[2]: 0
-frameTable[3]: 1
-
-page 000000: frame 000002 bits rw-
-page 000001: frame 000003 bits rw-
-page 000002: frame 000001 bits r--
 page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits rw-
 page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #3
+page 000006: frame 000001 bits rw-
+page 000007: frame 000003 bits r--
+page fault on page #1
 frameTable[0]: 4
-frameTable[1]: 2
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 7
+
+page 000000: frame 000002 bits r--
+page 000001: frame 000003 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits rw-
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #2
+frameTable[0]: 4
+frameTable[1]: 6
 frameTable[2]: 0
 frameTable[3]: 1
 
 page 000000: frame 000000 bits ---
-page 000001: frame 000003 bits rw-
-page 000002: frame 000001 bits r--
-page 000003: frame 000002 bits r--
+page 000001: frame 000003 bits r--
+page 000002: frame 000002 bits r--
+page 000003: frame 000000 bits ---
 page 000004: frame 000000 bits rw-
 page 000005: frame 000000 bits ---
-page 000006: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
 page 000007: frame 000000 bits ---
-page fault on page #5
+page fault on page #3
 frameTable[0]: 4
-frameTable[1]: 2
-frameTable[2]: 3
+frameTable[1]: 6
+frameTable[2]: 2
 frameTable[3]: 1
 
 page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000001 bits r--
-page 000003: frame 000002 bits r--
-page 000004: frame 000000 bits rw-
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits ---
-page 000007: frame 000000 bits ---
-page fault on page #6
-frameTable[0]: 4
-frameTable[1]: 2
-frameTable[2]: 3
-frameTable[3]: 5
-
-page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
-page 000002: frame 000001 bits r--
-page 000003: frame 000002 bits r--
+page 000001: frame 000003 bits r--
+page 000002: frame 000002 bits r--
+page 000003: frame 000000 bits r--
 page 000004: frame 000000 bits ---
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits r--
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #0
+frameTable[0]: 3
+frameTable[1]: 6
+frameTable[2]: 2
+frameTable[3]: 1
+
+page 000000: frame 000002 bits r--
+page 000001: frame 000003 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits r--
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #0
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits r--
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #1
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits rw-
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits r--
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #2
+frameTable[0]: 3
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 1
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits rw-
+page 000002: frame 000000 bits r--
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #2
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits rw-
+page 000002: frame 000000 bits rw-
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #3
+frameTable[0]: 2
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 1
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits rw-
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits r--
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #3
+page 000000: frame 000002 bits rw-
+page 000001: frame 000003 bits rw-
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits rw-
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #4
+frameTable[0]: 3
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 1
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits rw-
+page 000004: frame 000003 bits r--
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #4
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits rw-
+page 000004: frame 000003 bits rw-
+page 000005: frame 000000 bits ---
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #5
+frameTable[0]: 3
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 4
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000000 bits r--
+page 000006: frame 000001 bits rw-
+page 000007: frame 000000 bits ---
+page fault on page #5
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000003 bits rw-
+page 000005: frame 000000 bits rw-
+page 000006: frame 000001 bits rw-
 page 000007: frame 000000 bits ---
 page fault on page #7
-frameTable[0]: 6
-frameTable[1]: 2
-frameTable[2]: 3
-frameTable[3]: 5
+frameTable[0]: 5
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 4
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits rw-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000003 bits r--
+page fault on page #7
+page 000000: frame 000002 bits rw-
+page 000001: frame 000000 bits ---
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits rw-
+page 000006: frame 000001 bits rw-
+page 000007: frame 000003 bits rw-
+page fault on page #1
+frameTable[0]: 5
+frameTable[1]: 6
+frameTable[2]: 0
+frameTable[3]: 7
+
+page 000000: frame 000002 bits rw-
+page 000001: frame 000001 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits rw-
+page 000006: frame 000000 bits ---
+page 000007: frame 000003 bits rw-
+page fault on page #2
+frameTable[0]: 5
+frameTable[1]: 1
+frameTable[2]: 0
+frameTable[3]: 7
 
 page 000000: frame 000000 bits ---
-page 000001: frame 000000 bits ---
+page 000001: frame 000001 bits r--
+page 000002: frame 000002 bits r--
+page 000003: frame 000000 bits ---
+page 000004: frame 000000 bits ---
+page 000005: frame 000000 bits rw-
+page 000006: frame 000000 bits ---
+page 000007: frame 000003 bits rw-
+page fault on page #3
+frameTable[0]: 5
+frameTable[1]: 1
+frameTable[2]: 2
+frameTable[3]: 7
+
+page 000000: frame 000000 bits ---
+page 000001: frame 000001 bits r--
 page 000002: frame 000000 bits ---
 page 000003: frame 000002 bits r--
 page 000004: frame 000000 bits ---
-page 000005: frame 000003 bits r--
-page 000006: frame 000000 bits r--
-page 000007: frame 000001 bits r--
-sort result is -2119576
+page 000005: frame 000000 bits rw-
+page 000006: frame 000000 bits ---
+page 000007: frame 000003 bits rw-
+page fault on page #4
+frameTable[0]: 5
+frameTable[1]: 1
+frameTable[2]: 3
+frameTable[3]: 7
+
+page 000000: frame 000000 bits ---
+page 000001: frame 000001 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000002 bits r--
+page 000005: frame 000000 bits rw-
+page 000006: frame 000000 bits ---
+page 000007: frame 000003 bits rw-
+page fault on page #6
+frameTable[0]: 5
+frameTable[1]: 1
+frameTable[2]: 4
+frameTable[3]: 7
+
+page 000000: frame 000000 bits ---
+page 000001: frame 000001 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000002 bits r--
+page 000005: frame 000000 bits rw-
+page 000006: frame 000003 bits r--
+page 000007: frame 000000 bits ---
+page fault on page #7
+frameTable[0]: 5
+frameTable[1]: 1
+frameTable[2]: 4
+frameTable[3]: 6
+
+page 000000: frame 000000 bits ---
+page 000001: frame 000001 bits r--
+page 000002: frame 000000 bits ---
+page 000003: frame 000000 bits ---
+page 000004: frame 000002 bits r--
+page 000005: frame 000000 bits rw-
+page 000006: frame 000000 bits ---
+page 000007: frame 000003 bits r--
+sort result is -1109985
 0
+85
